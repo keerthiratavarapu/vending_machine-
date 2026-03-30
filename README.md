@@ -1,5 +1,4 @@
-
-#  Vending Machine (Verilog - FSM Based)
+# 🥤 Vending Machine (Verilog - FSM Based)
 
 ## 📌 Overview
 
@@ -72,7 +71,10 @@ The testbench verifies:
 ---
 
 
-## 💡 **Concepts Used**
+
+```
+
+## 💡 Concepts Used
 
 * Finite State Machine (FSM)
 * Sequential logic design
@@ -81,7 +83,7 @@ The testbench verifies:
 
 ---
 
-## 🚀 **Future Improvements**
+## 🚀 Future Improvements
 
 * Multiple product support
 * Different pricing system
