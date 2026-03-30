@@ -68,7 +68,6 @@ The testbench verifies:
  ┣ 📄 README.md
 ```
 
----
 
 
 
