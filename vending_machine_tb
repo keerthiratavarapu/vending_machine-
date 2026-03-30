@@ -1,0 +1,60 @@
+`timescale 1ns / 1ps
+
+module vending_machine_test;
+
+reg clk;
+reg reset;
+reg [1:0] coin;
+wire dispense;
+wire change;
+
+// Instantiate DUT
+vending_machine uut (
+    .clk(clk),
+    .reset(reset),
+    .coin(coin),
+    .dispense(dispense),
+    .change(change)
+);
+
+// Clock generation
+always #5 clk = ~clk;
+
+initial begin
+    // Initialize
+    clk = 0;
+    reset = 1;
+    coin = 2'b00;
+
+    #10 reset = 0;
+
+    // Test 1: 5 + 10 = 15
+    coin = 2'b01; #10; // ₹5
+    coin = 2'b10; #10; // ₹10 → dispense
+
+    // Test 2: 10 + 5 = 15
+    coin = 2'b10; #10; // ₹10
+    coin = 2'b01; #10; // ₹5 → dispense
+
+    // Test 3: 10 + 10 = 20
+    coin = 2'b10; #10; // ₹10
+    coin = 2'b10; #10; // ₹10 → dispense + change
+
+    // Test 4: 5 + 5 + 5 = 15
+    coin = 2'b01; #10;
+    coin = 2'b01; #10;
+    coin = 2'b01; #10;
+
+    // Stop inserting coins
+    coin = 2'b00; #20;
+
+    $finish;
+end
+
+// Monitor outputs
+initial begin
+    $monitor("Time=%0t | coin=%b | dispense=%b | change=%b",
+              $time, coin, dispense, change);
+end
+
+endmodule
